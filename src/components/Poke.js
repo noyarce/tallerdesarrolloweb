@@ -1,11 +1,10 @@
 import React from "react";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, CardHeader } from "@mui/material";
 
-const Poke = ({nombre}) => {
-  console.log(nombre)
+const Poke = ({ nombre , estilo}) => {
   return (
     <Card>
-      <CardContent>{nombre}</CardContent>
+      <CardContent sx={estilo} >{nombre}</CardContent>
     </Card>
   );
 };
