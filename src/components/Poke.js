@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 
 const Poke = ({ nombre , estilo}) => {
   return (
