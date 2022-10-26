@@ -19,7 +19,6 @@ const EjemploObjeto = () => {
    */
 
   const handleInputChange = (event) => {
-    console.log(event);
     const { name, value } = event.target;
     setObjetoPrueba({ ...objetoPrueba, [name]: value });
   };
@@ -95,7 +94,7 @@ puntos a considerar:
       <Card>
         <CardContent>
           {objetoPrueba.pokemon.trim() !== "" &&
-            (objetoPrueba.pokemon === objetoPrueba.pokemonDos
+            (objetoPrueba.pokemon.trim() == objetoPrueba.pokemonDos.trim()
               ? "iguales"
               : "distintos")}
         </CardContent>
