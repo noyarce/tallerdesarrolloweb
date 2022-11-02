@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Poke from "./Poke";
+import { LinearProgress } from "@mui/material";
+
+import { useBuscarInfoQuery } from "../Queries/QueriEjemplo";
 
 const Home = () => {
   /** cambiamos el nombre que habiamos usado en las listas para hacerlos mas descriptivos. 
@@ -18,6 +21,10 @@ sobre que hace cada cosa.
   const [listadoOriginal, setListadoOriginal] = useState([]);
   const [listadoAuxiliar, setListadoAuxiliar] = useState([]);
   const [listadoSeleccionado, setListadoSeleccionado] = useState([]);
+
+  const { data: nuevoListado, isLoading: cargando } = useBuscarInfoQuery();
+
+  console.log(nuevoListado);
 
   const [buscador, setBuscador] = useState("");
   const [errors, setErrors] = useState(false);
@@ -120,9 +127,9 @@ sobre que hace cada cosa.
     */
   };
 
-  useEffect(() => {
-    cargarPokemones();
-  }, []);
+  // useEffect(() => {
+  //   cargarPokemones();
+  // }, []);
 
   useEffect(() => {
     if (buscador.trim() !== "") {
@@ -193,9 +200,13 @@ sobre que hace cada cosa.
           }}
         >
           <Grid item md={4}>
-            {listadoOriginal.map((element, index) => (
-              <Poke pokemon={element} key={index} />
-            ))}
+            {cargando ? (
+              <LinearProgress />
+            ) : (
+              nuevoListado.map((element, index) => (
+                <Poke pokemon={element} key={index} />
+              ))
+            )}
           </Grid>
           <Grid item md={4}>
             {buscador &&

@@ -1,13 +1,17 @@
-import { TextField } from '@mui/material';
-import React from 'react';
+import { TextField } from "@mui/material";
+import React from "react";
 import { Controller } from "react-hook-form";
 
- const CustomTextField = ({ control, 
- name, label, disabled, 
- type = 'text', ...rest }) => {
-
-
-    /** nuestro custom textfield recibe ciertos parametros por defecto para ser utilizados con el formulario.
+const CustomTextField = ({
+  control,
+  name,
+  label,
+  disabled,
+  rules,
+  type = "text",
+  ...rest
+}) => {
+  /** nuestro custom textfield recibe ciertos parametros por defecto para ser utilizados con el formulario.
     control: como se mencionaba en el componente formulario, contiene los metodos para registrar los componentes dentro de nuestro formulario y tener 
     todo asociado. https://react-hook-form.com/api/useform/control
     name: le entrega un identificador al controller y al textfield, asi podemos decir que; 
@@ -40,24 +44,30 @@ import { Controller } from "react-hook-form";
     https://react-hook-form.com/api/usecontroller/controller
     
      */
-    
-    return (
-        <Controller name={name} control={control} render={({ field: { onChange, value } }) => (
-            <TextField
-                margin='dense'
-                id={name}
-                label={label}
-                variant="outlined"
-                onChange={onChange}
-                value={disabled ? '' : value}
-                fullWidth
-                size='small'
-                disabled={disabled}
-                type={type}
-                {...rest}
-            />
-        )} />
-    )
-}
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field: { onChange, value } }) => (
+        <TextField
+          margin="dense"
+          id={name}
+          label={label}
+          variant="outlined"
+          onChange={onChange}
+          value={disabled ? "" : value}
+          fullWidth
+          size="small"
+          disabled={disabled}
+          type={type}
+          {...rest}
+        />
+        
+      )}
+    />
+  );
+};
 
 export default CustomTextField;

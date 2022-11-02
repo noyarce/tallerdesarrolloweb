@@ -4,9 +4,15 @@ import { useForm } from "react-hook-form";
 import CustomDatePicker from "../components/CustomDatePicker";
 import CustomTextField from "../components/CustomTextfield";
 import { format } from "date-fns";
+import axios from "axios";
 
 const Formulario = () => {
-  const { handleSubmit, reset, control } = useForm({
+  const {
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       nombre: "",
       cantidad: "",
@@ -37,7 +43,14 @@ valores por defecto para que no estén vacios pero eso depende del caso en que s
     console.log("original", data);
     data.fecha = format(data.fecha, "dd-MM-yyyy");
     console.log("modificado", data);
+    guardarInfo(data);
     reset();
+  };
+
+  const guardarInfo = (data) => {
+    axios
+      .post("https://httpbin.org/post", data)
+      .then((response) => console.log(response));
   };
   /**cuando los datos del formulario estan validados, onsubmit recibe la data como un objeto, se puede manipular la data dentro del onsubmit para
 enviar a una api y almacenar los datos enviados. */
@@ -77,11 +90,9 @@ enviar a una api y almacenar los datos enviados. */
                     label="cantidad"
                     control={control}
                     type="number"
+                    rules={{ pattern: "[0-9]*", min: 18, max: 99 }}
                     inputProps={{
                       inputMode: "numeric",
-                      pattern: "[0-9]*",
-                      min: 18,
-                      max: 99,
                     }}
                   />
                 </Grid>
@@ -113,7 +124,7 @@ enviar a una api y almacenar los datos enviados. */
     </Container>
   );
 };
- /** para fines practicos de la clase les facilito 3 componentes custom, que será el autocomplete,
+/** para fines practicos de la clase les facilito 3 componentes custom, que será el autocomplete,
   el date picker y Textfield. con los cuales podrán tener una base para lo que estimen conveniente utilizar. 
   ustedes además pueden crear sus propios componentes custom para utilizarlos y complementar sus formularios.
   
