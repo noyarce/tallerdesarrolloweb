@@ -5,6 +5,8 @@ import CustomDatePicker from "../components/CustomDatePicker";
 import CustomTextField from "../components/CustomTextfield";
 import { format } from "date-fns";
 import axios from "axios";
+import { CustomAutocomplete } from "../components/CustomAutocomplete";
+import { useBuscarInfoQuery } from "../Queries/QueriEjemplo";
 
 const Formulario = () => {
   const {
@@ -16,9 +18,20 @@ const Formulario = () => {
     defaultValues: {
       nombre: "",
       cantidad: "",
+      poke: { id: "", label: "" },
       fecha: new Date(),
     },
   });
+
+
+  const [params, setParams] = useState({ limit: 151 });
+
+  const {
+    data: nuevoListado,
+    isLoading: cargando,
+    refetch: recargar,
+    isError: errorQuery,
+  } = useBuscarInfoQuery(params);
 
   /** Lo primero a considerar serán la declaración de nuestro useForm. 
           https://react-hook-form.com/api/useform
@@ -90,7 +103,7 @@ enviar a una api y almacenar los datos enviados. */
                     label="cantidad"
                     control={control}
                     type="number"
-                    rules={{ pattern: "[0-9]*", min: 18, max: 99 }}
+                    rules={{ pattern: "[0-9]*", min: 1, max: 99 }}
                     inputProps={{
                       inputMode: "numeric",
                     }}
@@ -103,6 +116,14 @@ enviar a una api y almacenar los datos enviados. */
                     control={control}
                   />
                 </Grid>
+              </Grid>
+              <Grid item md={4}>
+                <CustomAutocomplete
+                  name="poke"
+                  label="pokemons"
+                  options={nuevoListado}
+                  control={control}
+                />
               </Grid>
               <CardActions>
                 <Button

@@ -8,7 +8,7 @@ const Poke = ({ pokemon, estilo = null, funcion = null }) => {
    */
   return (
     <Card sx={estilo}>
-      <CardContent>{pokemon.name}</CardContent>
+      <CardContent>{pokemon.label} : {pokemon.id}</CardContent>
       <CardActions>
         {funcion && <Button onClick={() => funcion(pokemon)}>acción </Button>}
       </CardActions>

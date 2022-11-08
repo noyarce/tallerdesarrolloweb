@@ -11,7 +11,7 @@ function App() {
   return (
     <Container>
       <QueryClientProvider client={queryClient}>
-        <Home />
+        <Formulario />
       </QueryClientProvider>
     </Container>
   );
