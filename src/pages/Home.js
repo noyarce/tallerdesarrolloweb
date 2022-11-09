@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
-import Poke from "./Poke";
+import Poke from "../components/Poke";
 import { LinearProgress } from "@mui/material";
 import { useBuscarInfoQuery } from "../Queries/QueriEjemplo";
 
@@ -18,7 +18,7 @@ const Home = () => {
     setParams({limit: event.target.value});
   };
   return (
-    <Container fixed sx={{ height: 1 }}>
+    <Container fixed sx={{ height: 1, ml:5 }}>
       <Box>
         <TextField
           sx={{ mt: 2 }}

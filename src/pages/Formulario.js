@@ -33,6 +33,8 @@ const Formulario = () => {
     isError: errorQuery,
   } = useBuscarInfoQuery(params);
 
+
+const cajas = [{id: 0, label: "fuego"}, {id:1, label: "agua"}];
   /** Lo primero a considerar serán la declaración de nuestro useForm. 
           https://react-hook-form.com/api/useform
     use Form es un hook personalizado por la libreria react-hook-form, que se encarga de gestionar nuestros formularios, 
@@ -71,7 +73,7 @@ enviar a una api y almacenar los datos enviados. */
   /**https://react-hook-form.com/get-started */
 
   return (
-    <Container>
+    <Container sx={{ml:5}}>
       <Grid
         container
         direction="row"
