@@ -18,7 +18,7 @@ const Home = () => {
     setParams({limit: event.target.value});
   };
   return (
-    <Container fixed sx={{ height: 1, ml:5 }}>
+    <Container fixed sx={{ height: 1 }}>
       <Box>
         <TextField
           sx={{ mt: 2 }}
@@ -57,9 +57,5 @@ const Home = () => {
     </Container>
   );
 };
-/**en las lineas 203 y 208 le entregamos a poke una prop llamada funcion, esta se encarga de recibir eso
-una funcion la cual dentro de poke, poke no se preocupa de nada, solo se encargará de hacer el llamado a la funcion
-con los datos entregados. es por ello que se le puede entregar dos funciones distintas en distintas listas. 
-*/
 
 export default Home;

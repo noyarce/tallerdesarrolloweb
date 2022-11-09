@@ -25,7 +25,8 @@ export default function PermanentDrawerLeft() {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-ToolBar          </Typography>
+            ToolBar{" "}
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -57,7 +58,7 @@ ToolBar          </Typography>
             <ListItemButton href="/formulario">
               <ListItemIcon>
                 <Inbox />
-              </ListItemIcon>        
+              </ListItemIcon>
               <ListItemText primary={"Formulario"} />
             </ListItemButton>
           </ListItem>
