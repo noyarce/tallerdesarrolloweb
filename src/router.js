@@ -1,30 +1,31 @@
-import {
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Formulario from "./pages/Formulario";
-import { useState } from "react";
+import Login from "./pages/Login";
+import PermanentDrawerLeft from "./components/Drawer";
+import { useUsuario } from "./context/usuarioContext";
 
 const RouterApp = () => {
-  const [login, setLogin]= useState(false);
-  return (login? <LogInRoutes/>:<LogOutRoutes/>)
+  const { usuario } = useUsuario();
+  return !usuario ? <LogInRoutes /> : <LogOutRoutes />;
 };
 
-const LogInRoutes=()=>{
-return (
+const LogInRoutes = () => {
+  return (
+    <Routes>
+      <Route exact path="/login" element={<Login />} />
+    </Routes>
+  );
+};
+const LogOutRoutes = () => {
+  return (
+    <>
+      <PermanentDrawerLeft />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/formulario" element={<Formulario />} />
       </Routes>
+    </>
   );
-}
-const LogOutRoutes=()=>{
-return (
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        {/* <Route exact path="/formulario" element={<Formulario />} /> */}
-      </Routes>
-  );
-}
+};
 export default RouterApp;

@@ -1,49 +1,40 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { setToken, getToken, deleteToken } from "../helpers/token-helpers";
+import React, {  createContext, useContext,useState, useMemo, useEffect } from "react";
+import { setToken, getToken, deleteToken } from "../helpers/usuario";
 import clienteAxios from "../helpers/clienteAxios";
 
-const UsuarioContext = React.createContext();
+import { useIniciarSesion } from "../Queries/LoginQuery";
+import { useMutation } from "@tanstack/react-query";
+
+const UsuarioContext = createContext();
 
 const UsuarioProvider = (props) => {
   const [usuario, setUsuario] = useState(null);
-  const [errorLogin, setErrorLogin] = useState(false);
-  const [cargandoUsuario, setCargandoUsuario] = useState(false);
 
- 
-  const loginUsuario = async (form) => {
-    try {
-      setCargandoUsuario(true);
-      const { data } = await clienteAxios.post("api/login-usuario", form);
-      if (data.codigo === 401) {
-        setToken(null);
-        setCargandoUsuario(false);
-        setErrorLogin(true);
-        return;
-      }
-      setToken(data.token);
-      setCargandoUsuario(false);
-      setErrorLogin(false);
+  const { mutate, isLoading : cargandoUsuario} = useMutation(useIniciarSesion, {
+    onSuccess: (response) => {
+      setToken(response.access_token);
       getUsuario();
       window.location = "/home";
-    } catch (error) {
-      setCargandoUsuario(false);
-      console.log(error);
-    }
+    },
+    onError: (error) => {
+      setToken(null);
+      console.log("mali");
+    },
+  });
+
+  const loginUsuario = async (form) => {
+    mutate(form);
   };
 
   const getUsuario = async () => {
     if (!getToken()) {
-      setCargandoUsuario(false);
       return;
     }
 
     try {
-      setCargandoUsuario(true);
-      const { data } = await clienteAxios.get("api/usuario");
-      setUsuario(data.data);
-      setCargandoUsuario(false);
+      const { data } = await clienteAxios.get("/user");
+      setUsuario(data);
     } catch (error) {
-      setCargandoUsuario(false);
       console.log(error);
     }
   };
@@ -63,26 +54,18 @@ const UsuarioProvider = (props) => {
       usuario,
       cargandoUsuario,
       loginUsuario,
-      setCargandoUsuario,
-      logout,
-      errorLogin,
-      setErrorLogin,
+      logout
     };
-  }, [usuario, cargandoUsuario, errorLogin]);
+  }, [usuario, cargandoUsuario,loginUsuario,logout]);
 
-  return <UsuarioContext.Provider value={value} {...props} />;
+  return <UsuarioContext.Provider 
+  value={value} 
+  {...props} 
+  />;
 };
 
 const useUsuario = () => {
-  const context = React.useContext(UsuarioContext);
-
-  if (!context) {
-    throw new Error(
-      "el hook useUsuario debe estar dentro del proveedor UsuarioContext"
-    );
-  }
-
-  return context;
+  return useContext(UsuarioContext);
 };
 
 export { UsuarioProvider, useUsuario };

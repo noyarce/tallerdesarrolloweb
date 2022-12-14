@@ -11,12 +11,15 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Inbox, Mail } from "@mui/icons-material";
+import { Inbox, Logout, Mail } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useUsuario } from "../context/usuarioContext";
 
 const drawerWidth = 240;
 
 export default function PermanentDrawerLeft() {
+  const {logout}=useUsuario();
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -27,6 +30,8 @@ export default function PermanentDrawerLeft() {
           <Typography variant="h6" noWrap component="div">
             ToolBar{" "}
           </Typography>
+                    <Button onClick={()=>logout()}color="inherit">LogOut</Button>
+
         </Toolbar>
       </AppBar>
       <Drawer

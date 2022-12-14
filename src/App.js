@@ -13,15 +13,13 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <Container>
-      <UsuarioProvider>
-        {/*añadimos nuestro provider de usuario */}
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <UsuarioProvider>
           <BrowserRouter>
-            <PermanentDrawerLeft />
             <RouterApp />
           </BrowserRouter>
-        </QueryClientProvider>
-      </UsuarioProvider>
+        </UsuarioProvider>
+      </QueryClientProvider>
     </Container>
   );
 }
