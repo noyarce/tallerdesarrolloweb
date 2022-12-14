@@ -12,7 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Inbox, Mail } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -46,21 +46,25 @@ export default function PermanentDrawerLeft() {
 
         <List>
           <ListItem key={0} disablePadding>
-            <ListItemButton href="/">
-              <ListItemIcon>
-                <Mail />
-              </ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItemButton>
+            <NavLink to="/">
+              <ListItemButton>
+                <ListItemIcon>
+                  <Mail />
+                </ListItemIcon>
+                <ListItemText primary={"Home"} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
 
           <ListItem key={1} disablePadding>
-            <ListItemButton href="/formulario">
-              <ListItemIcon>
-                <Inbox />
-              </ListItemIcon>
-              <ListItemText primary={"Formulario"} />
-            </ListItemButton>
+            <NavLink to="/formulario">
+              <ListItemButton>
+                <ListItemIcon>
+                  <Inbox />
+                </ListItemIcon>
+                <ListItemText primary={"Formulario"} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         </List>
       </Drawer>

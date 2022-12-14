@@ -1,30 +1,27 @@
 import React from "react";
 import { Container } from "@mui/material";
-import Formulario from "./pages/Formulario";
+
 import PermanentDrawerLeft from "./components/Drawer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Home from "./pages/Home";
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Route,
-  Routes,
-} from "react-router-dom";
+import RouterApp from "./router";
+
+import { BrowserRouter } from "react-router-dom";
+import { UsuarioProvider } from "./context/usuarioContext";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <Container>
-      <QueryClientProvider client={queryClient}>
-        <PermanentDrawerLeft />
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/formulario" element={<Formulario />} />
-          </Routes>
-        </Router>
-      </QueryClientProvider>
+      <UsuarioProvider>
+        {/*añadimos nuestro provider de usuario */}
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <PermanentDrawerLeft />
+            <RouterApp />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </UsuarioProvider>
     </Container>
   );
 }
